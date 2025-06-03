@@ -3,7 +3,6 @@ import numpy as np
 import pickle
 from pathlib import Path
 
-# MUST be the first Streamlit command
 st.set_page_config(page_title="Heart Disease Prediction", layout="wide")
 
 
