@@ -10,17 +10,23 @@ st.set_page_config(page_title="Heart Disease Prediction", layout="wide")
 @st.cache_resource
 def load_model():
     try:
-        model_path = Path('random_forest_model.pkl')
+        # Try to find the model file in the same directory
+        model_path = Path(__file__).parent / "random_forest_model.pkl"
+        
+        # Alternative path for Streamlit sharing
+        if not model_path.exists():
+            model_path = Path("random_forest_model.pkl")
+            
         if not model_path.exists():
             st.error("Model file not found! Please ensure 'random_forest_model.pkl' is in the same directory.")
             return None
+            
         with open(model_path, 'rb') as file:
             model = pickle.load(file)
         return model
     except Exception as e:
         st.error(f"Error loading model: {str(e)}")
         return None
-
 
 model = load_model()
 
